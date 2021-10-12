@@ -1,7 +1,7 @@
 import React from "react";
 import { ThemeProvider } from "styled-components/native";
 
-import { Home } from "./src/Screens/Home";
+import { Home } from "./src/screens/Home";
 
 import {
     useFonts,
