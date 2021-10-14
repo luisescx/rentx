@@ -1,7 +1,7 @@
 import React from "react";
 import { StatusBar, View } from "react-native";
 
-import { Container, Header, HeaderContent, Title } from "./styles";
+import { Container, Header, HeaderContent, Title, CarsList } from "./styles";
 import Logo from "../../../assets/logo.svg";
 import { RFValue } from "react-native-responsive-fontsize";
 import { Car } from "../../components/Car";
@@ -18,16 +18,6 @@ export const Home = () => {
         thumbnail: require("../../../assets/carsImages/Audi.png"),
     } as CarProps;
 
-    const dataCar2 = {
-        brand: "Audi",
-        name: "RS 5 Coupé",
-        rent: {
-            period: "Ao dia",
-            price: 5,
-        },
-        thumbnail: require("../../../assets/carsImages/Porche.png"),
-    } as CarProps;
-
     return (
         <Container>
             <StatusBar
@@ -42,10 +32,11 @@ export const Home = () => {
                 </HeaderContent>
             </Header>
 
-            <View style={{ padding: 16 }}>
-                <Car data={dataCar} />
-                <Car data={dataCar2} />
-            </View>
+            <CarsList
+                data={[1, 2, 3, 4, 5, 6]}
+                keyExtractor={(item) => String(item)}
+                renderItem={(item) => <Car data={dataCar} />}
+            />
         </Container>
     );
 };
