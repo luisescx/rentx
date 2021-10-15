@@ -1,7 +1,8 @@
 import React from "react";
 
 import { BackButton } from "../../components/BackButton";
-import { Container, Header } from "./styles";
+import ImageSlider from "../../components/ImageSlider";
+import { Container, Header, CarImages } from "./styles";
 
 export const CarDetails = () => {
     return (
@@ -9,6 +10,12 @@ export const CarDetails = () => {
             <Header>
                 <BackButton />
             </Header>
+
+            <CarImages>
+                <ImageSlider
+                    imageUrl={[require("../../../assets/carsImages/Audi.png")]}
+                />
+            </CarImages>
         </Container>
     );
 };
