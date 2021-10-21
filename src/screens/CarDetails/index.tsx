@@ -10,6 +10,7 @@ import forceSvg from "../../../assets/force.svg";
 import gasolineSvg from "../../../assets/gasoline.svg";
 import exchangeSvg from "../../../assets/exchange.svg";
 import peopleSvg from "../../../assets/people.svg";
+import { Button } from "../../components/Button";
 
 import {
     Container,
@@ -25,7 +26,9 @@ import {
     About,
     Description,
     Accessories,
+    Footer,
 } from "./styles";
+import { ScrollView } from "react-native-gesture-handler";
 
 export const CarDetails = () => {
     return (
@@ -67,7 +70,21 @@ export const CarDetails = () => {
                     lide indultado na praça Real Maestranza de Sevilla. É um
                     belíssimo carro para quem gosta de acelerar.
                 </About>
+                <About>
+                    Este é automóvel desportivo. Surgiu do lendário touro de
+                    lide indultado na praça Real Maestranza de Sevilla. É um
+                    belíssimo carro para quem gosta de acelerar.
+                </About>
+                <About>
+                    Este é automóvel desportivo. Surgiu do lendário touro de
+                    lide indultado na praça Real Maestranza de Sevilla. É um
+                    belíssimo carro para quem gosta de acelerar.
+                </About>
             </Content>
+
+            <Footer>
+                <Button title="Confirmar" />
+            </Footer>
         </Container>
     );
 };
