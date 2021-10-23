@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusBar, View } from "react-native";
+import { StatusBar } from "react-native";
 
 import { Container, Header, HeaderContent, Title, CarsList } from "./styles";
 import Logo from "../../../assets/logo.svg";

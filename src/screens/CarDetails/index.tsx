@@ -28,7 +28,6 @@ import {
     Accessories,
     Footer,
 } from "./styles";
-import { ScrollView } from "react-native-gesture-handler";
 
 export const CarDetails = () => {
     return (
