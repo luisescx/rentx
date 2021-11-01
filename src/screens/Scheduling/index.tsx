@@ -2,7 +2,6 @@ import React from "react";
 import { StatusBar } from "react-native";
 import { useTheme } from "styled-components/native";
 import { BackButton } from "../../components/BackButton";
-
 import {
     Container,
     Header,
@@ -17,9 +16,19 @@ import {
 import ArrowSvg from "../../../assets/arrow.svg";
 import { Button } from "../../components/Button";
 import Calendar from "../../components/Calendar";
+import { useNavigation } from "@react-navigation/native";
+import {
+    NavigateEnum,
+    ProfileScreenNavigationProp,
+} from "../../common/interfaces";
 
 export const Scheduling = () => {
+    const navigation = useNavigation<ProfileScreenNavigationProp>();
     const theme = useTheme();
+
+    const handleConfirmation = () => {
+        navigation.navigate(NavigateEnum.schedulingDetails);
+    };
 
     return (
         <Container>
@@ -57,7 +66,7 @@ export const Scheduling = () => {
             </Content>
 
             <Footer>
-                <Button title="Confirmar" />
+                <Button title="Confirmar" onPress={handleConfirmation} />
             </Footer>
         </Container>
     );

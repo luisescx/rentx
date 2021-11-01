@@ -11,6 +11,7 @@ import gasolineSvg from "../../../assets/gasoline.svg";
 import exchangeSvg from "../../../assets/exchange.svg";
 import peopleSvg from "../../../assets/people.svg";
 import { Button } from "../../components/Button";
+import { useNavigation } from "@react-navigation/native";
 
 import {
     Container,
@@ -28,8 +29,18 @@ import {
     Accessories,
     Footer,
 } from "./styles";
+import {
+    NavigateEnum,
+    ProfileScreenNavigationProp,
+} from "../../common/interfaces";
 
 export const CarDetails = () => {
+    const navigation = useNavigation<ProfileScreenNavigationProp>();
+
+    const handleConfirmation = () => {
+        navigation.navigate(NavigateEnum.scheduling);
+    };
+
     return (
         <Container>
             <Header>
@@ -82,7 +93,10 @@ export const CarDetails = () => {
             </Content>
 
             <Footer>
-                <Button title="Confirmar" />
+                <Button
+                    title="Escolher período do aluguel"
+                    onPress={handleConfirmation}
+                />
             </Footer>
         </Container>
     );

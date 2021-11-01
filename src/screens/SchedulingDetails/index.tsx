@@ -40,8 +40,19 @@ import {
 } from "./styles";
 import { RFValue } from "react-native-responsive-fontsize";
 import theme from "../../styles/theme";
+import { useNavigation } from "@react-navigation/native";
+import {
+    NavigateEnum,
+    ProfileScreenNavigationProp,
+} from "../../common/interfaces";
 
 export const SchedulingDetails = () => {
+    const navigation = useNavigation<ProfileScreenNavigationProp>();
+
+    const handleConfirmRent = () => {
+        navigation.navigate(NavigateEnum.schedulingComplete);
+    };
+
     return (
         <Container>
             <Header>
@@ -112,7 +123,11 @@ export const SchedulingDetails = () => {
             </Content>
 
             <Footer>
-                <Button title="Alugar" color={theme.colors.success} />
+                <Button
+                    title="Alugar Agora"
+                    color={theme.colors.success}
+                    onPress={handleConfirmRent}
+                />
             </Footer>
         </Container>
     );

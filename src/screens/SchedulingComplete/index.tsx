@@ -1,15 +1,24 @@
 import React from "react";
 import { useWindowDimensions } from "react-native";
-
 import LogoSvg from "../../../assets/logo_background_gray.svg";
 import DoneSvg from "../../../assets/done.svg";
-
+import { useNavigation } from "@react-navigation/native";
 import { Container, Content, Title, Message, Footer } from "./styles";
 import { StatusBar } from "react-native";
 import ConfirmButton from "../../components/ConfirmButton";
+import {
+    NavigateEnum,
+    ProfileScreenNavigationProp,
+} from "../../common/interfaces";
 
 const SchedulingComplete = () => {
     const { width } = useWindowDimensions();
+
+    const navigation = useNavigation<ProfileScreenNavigationProp>();
+
+    const handleConfirmRent = () => {
+        navigation.navigate(NavigateEnum.home);
+    };
 
     return (
         <Container>
@@ -32,7 +41,7 @@ const SchedulingComplete = () => {
             </Content>
 
             <Footer>
-                <ConfirmButton title={"OK"} />
+                <ConfirmButton title={"OK"} onPress={handleConfirmRent} />
             </Footer>
         </Container>
     );
