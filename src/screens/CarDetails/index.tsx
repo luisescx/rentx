@@ -29,10 +29,9 @@ import {
     Accessories,
     Footer,
 } from "./styles";
-import {
-    NavigateEnum,
-    ProfileScreenNavigationProp,
-} from "../../common/interfaces";
+import { ProfileScreenNavigationProp } from "../../common/interfaces";
+import { NavigateEnum } from "../../common/enum";
+import { StatusBar } from "react-native";
 
 export const CarDetails = () => {
     const navigation = useNavigation<ProfileScreenNavigationProp>();
@@ -41,10 +40,20 @@ export const CarDetails = () => {
         navigation.navigate(NavigateEnum.scheduling);
     };
 
+    const handleGoBack = () => {
+        navigation.goBack();
+    };
+
     return (
         <Container>
+            <StatusBar
+                barStyle={"dark-content"}
+                backgroundColor="transparent"
+                translucent
+            />
+
             <Header>
-                <BackButton />
+                <BackButton onPress={handleGoBack} />
             </Header>
 
             <CarImages>

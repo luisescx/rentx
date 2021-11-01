@@ -1,22 +1,26 @@
 import { CompositeNavigationProp } from "@react-navigation/core";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { ImageSourcePropType } from "react-native";
+import { AccessoryType, FuelType } from "./enum";
 
-export interface CarProps {
+export interface Accessory {
+    type: AccessoryType;
+    name: string;
+}
+
+export interface CarDTO {
+    id: string;
     brand: string;
     name: string;
+    about: string;
     rent: {
         period: string;
         price: number;
     };
+    fuel_type: FuelType;
     thumbnail: string;
-}
-
-export enum NavigateEnum {
-    home = "Home",
-    carDetails = "CarDetails",
-    scheduling = "Scheduling",
-    schedulingDetails = "SchedulingDetails",
-    schedulingComplete = "SchedulingComplete",
+    accessories: Accessory[];
+    photos: string[];
 }
 
 export type RootParamList = {

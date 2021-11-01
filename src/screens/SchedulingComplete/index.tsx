@@ -6,10 +6,8 @@ import { useNavigation } from "@react-navigation/native";
 import { Container, Content, Title, Message, Footer } from "./styles";
 import { StatusBar } from "react-native";
 import ConfirmButton from "../../components/ConfirmButton";
-import {
-    NavigateEnum,
-    ProfileScreenNavigationProp,
-} from "../../common/interfaces";
+import { ProfileScreenNavigationProp } from "../../common/interfaces";
+import { NavigateEnum } from "../../common/enum";
 
 const SchedulingComplete = () => {
     const { width } = useWindowDimensions();

@@ -4,11 +4,7 @@ import { ImageSourcePropType } from "react-native";
 import { RectButtonProps } from "react-native-gesture-handler";
 
 import GasolineSvg from "../../../assets/gasoline.svg";
-import {
-    CarProps,
-    NavigateEnum,
-    ProfileScreenNavigationProp,
-} from "../../common/interfaces";
+import { CarDTO } from "../../common/interfaces";
 
 import {
     Container,
@@ -24,20 +20,13 @@ import {
 } from "./styles";
 
 interface Props extends RectButtonProps {
-    data: CarProps;
+    data: CarDTO;
+    onPress: () => void;
 }
 
-export const Car = ({ data }: Props) => {
-    const navigation = useNavigation<ProfileScreenNavigationProp>();
-
-    const carImage = data.thumbnail as ImageSourcePropType; // verificar se é possivel tipar direto na interface
-
-    const handleCarPress = () => {
-        navigation.navigate(NavigateEnum.carDetails);
-    };
-
+export const Car = ({ data, onPress }: Props) => {
     return (
-        <Container onPress={handleCarPress}>
+        <Container onPress={onPress}>
             <Details>
                 <Brand>{data.brand}</Brand>
                 <Name>{data.name}</Name>
@@ -54,7 +43,7 @@ export const Car = ({ data }: Props) => {
                 </About>
             </Details>
 
-            <CarImage source={carImage} resizeMode="contain" />
+            <CarImage source={{ uri: data.thumbnail }} resizeMode="contain" />
         </Container>
     );
 };

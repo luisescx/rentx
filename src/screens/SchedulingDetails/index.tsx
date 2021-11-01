@@ -41,10 +41,8 @@ import {
 import { RFValue } from "react-native-responsive-fontsize";
 import theme from "../../styles/theme";
 import { useNavigation } from "@react-navigation/native";
-import {
-    NavigateEnum,
-    ProfileScreenNavigationProp,
-} from "../../common/interfaces";
+import { ProfileScreenNavigationProp } from "../../common/interfaces";
+import { NavigateEnum } from "../../common/enum";
 
 export const SchedulingDetails = () => {
     const navigation = useNavigation<ProfileScreenNavigationProp>();
@@ -53,10 +51,14 @@ export const SchedulingDetails = () => {
         navigation.navigate(NavigateEnum.schedulingComplete);
     };
 
+    const handleGoBack = () => {
+        navigation.goBack();
+    };
+
     return (
         <Container>
             <Header>
-                <BackButton />
+                <BackButton onPress={handleGoBack} />
             </Header>
 
             <CarImages>

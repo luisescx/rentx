@@ -17,10 +17,8 @@ import ArrowSvg from "../../../assets/arrow.svg";
 import { Button } from "../../components/Button";
 import Calendar from "../../components/Calendar";
 import { useNavigation } from "@react-navigation/native";
-import {
-    NavigateEnum,
-    ProfileScreenNavigationProp,
-} from "../../common/interfaces";
+import { ProfileScreenNavigationProp } from "../../common/interfaces";
+import { NavigateEnum } from "../../common/enum";
 
 export const Scheduling = () => {
     const navigation = useNavigation<ProfileScreenNavigationProp>();
@@ -28,6 +26,10 @@ export const Scheduling = () => {
 
     const handleConfirmation = () => {
         navigation.navigate(NavigateEnum.schedulingDetails);
+    };
+
+    const handleGoBack = () => {
+        navigation.goBack();
     };
 
     return (
@@ -38,7 +40,7 @@ export const Scheduling = () => {
                 translucent
             />
             <Header>
-                <BackButton onPress={() => {}} color={theme.colors.shape} />
+                <BackButton onPress={handleGoBack} color={theme.colors.shape} />
 
                 <Title>
                     Escolha uma {"\n"}
