@@ -16,8 +16,8 @@ export const Home = () => {
 
     const navigation = useNavigation<ProfileScreenNavigationProp>();
 
-    const handleCarPress = () => {
-        navigation.navigate(NavigateEnum.carDetails);
+    const handleCarPress = (car: CarDTO) => {
+        navigation.navigate(NavigateEnum.carDetails, { car });
     };
 
     useEffect(() => {
@@ -49,16 +49,16 @@ export const Home = () => {
                 </HeaderContent>
             </Header>
 
-            {cars.length > 0 ? (
+            {isLoading ? (
+                <Loading />
+            ) : (
                 <CarsList
                     data={cars}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => (
-                        <Car data={item} onPress={handleCarPress} />
+                        <Car data={item} onPress={() => handleCarPress(item)} />
                     )}
                 />
-            ) : (
-                <Loading />
             )}
         </Container>
     );

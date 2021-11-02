@@ -1,5 +1,4 @@
 import React from "react";
-import { ImageSourcePropType } from "react-native";
 
 import {
     Container,
@@ -14,8 +13,6 @@ interface Props {
 }
 
 const ImageSlider = ({ imageUrl }: Props) => {
-    const activeImage = imageUrl[0] as ImageSourcePropType;
-
     return (
         <Container>
             <ImageIndexes>
@@ -26,7 +23,7 @@ const ImageSlider = ({ imageUrl }: Props) => {
             </ImageIndexes>
 
             <CarImageWrapper>
-                <CarImage source={activeImage} resizeMode="contain" />
+                <CarImage source={{ uri: imageUrl[0] }} resizeMode="contain" />
             </CarImageWrapper>
         </Container>
     );

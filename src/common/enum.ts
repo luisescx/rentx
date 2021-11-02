@@ -10,13 +10,15 @@ export enum AccessoryType {
     speed = "speed",
     acceleration = "acceleration",
     turning_diameter = "turning_diameter",
+    gasoline_motor = "gasoline_motor",
     electric_motor = "electric_motor",
+    hybrid_motor = "hybrid_motor",
     exchange = "exchange",
     seats = "seats",
 }
 
 export enum FuelType {
-    electric = "electric",
-    gasoline = "gasoline",
-    hybrid = "hybrid",
+    electric_motor = "electric_motor",
+    gasoline_motor = "gasoline_motor",
+    hybrid_motor = "hybrid_motor",
 }

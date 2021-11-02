@@ -25,11 +25,15 @@ export interface CarDTO {
 
 export type RootParamList = {
     Home: undefined;
-    CarDetails: undefined;
+    CarDetails: { car: CarDTO };
     Scheduling: undefined;
     SchedulingDetails: undefined;
     SchedulingComplete: undefined;
 };
+
+export interface RouteParams {
+    car: CarDTO;
+}
 
 export type ProfileScreenNavigationProp = CompositeNavigationProp<
     NativeStackNavigationProp<RootParamList>,
