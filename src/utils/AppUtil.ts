@@ -9,6 +9,9 @@ import HybridSvg from "../../assets/hybrid.svg";
 import ExchangeSvg from "../../assets/exchange.svg";
 import PeopleSvg from "../../assets/people.svg";
 
+import { addDays } from "date-fns";
+import { Platform } from "react-native";
+
 export function getAccessoryIcon(type: AccessoryType) {
     switch (type) {
         case AccessoryType.speed:
@@ -43,4 +46,14 @@ export function getFuelIcon(type: FuelType) {
         default:
             break;
     }
+}
+
+export function getPlatformDate(date: Date) {
+    // if (Platform.OS === "ios") {
+    //     console.log("ios");
+    // return addDays(date, 1);
+    // }
+
+    return addDays(date, 1);
+    // return date;
 }

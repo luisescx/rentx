@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StatusBar } from "react-native";
 import { useTheme } from "styled-components/native";
 import { BackButton } from "../../components/BackButton";
@@ -19,8 +19,17 @@ import Calendar from "../../components/Calendar";
 import { useNavigation } from "@react-navigation/native";
 import { ProfileScreenNavigationProp } from "../../common/interfaces";
 import { NavigateEnum } from "../../common/enum";
+import { DateObject, MarkedDateProps } from "react-native-calendars";
+import { generateInterval } from "../../components/Calendar/generateInterval";
 
 export const Scheduling = () => {
+    const [lastSelectedDate, setLastSelectedDate] = useState<DateObject>(
+        {} as DateObject
+    );
+    const [markedDates, setMarkedDates] = useState<MarkedDateProps>(
+        {} as MarkedDateProps
+    );
+
     const navigation = useNavigation<ProfileScreenNavigationProp>();
     const theme = useTheme();
 
@@ -30,6 +39,20 @@ export const Scheduling = () => {
 
     const handleGoBack = () => {
         navigation.goBack();
+    };
+
+    const handleChangeDate = (date: DateObject) => {
+        let start = lastSelectedDate.timestamp ? lastSelectedDate : date;
+        let end = date;
+
+        if (start.timestamp > end.timestamp) {
+            start = end;
+            end = start;
+        }
+
+        setLastSelectedDate(end);
+        const interval = generateInterval(start, end);
+        setMarkedDates(interval);
     };
 
     return (
@@ -64,7 +87,10 @@ export const Scheduling = () => {
             </Header>
 
             <Content>
-                <Calendar />
+                <Calendar
+                    markedDates={markedDates}
+                    onDayPress={handleChangeDate}
+                />
             </Content>
 
             <Footer>
