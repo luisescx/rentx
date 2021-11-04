@@ -27,6 +27,6 @@ export function generateInterval(start: DateObject, end: DateObject) {
             },
         };
     });
-    console.log(interval);
+
     return interval;
 }

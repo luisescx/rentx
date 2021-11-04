@@ -1,6 +1,5 @@
 import { CompositeNavigationProp } from "@react-navigation/core";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ImageSourcePropType } from "react-native";
 import { AccessoryType, FuelType } from "./enum";
 
 export interface Accessory {
@@ -23,17 +22,25 @@ export interface CarDTO {
     photos: string[];
 }
 
-export type RootParamList = {
-    Home: undefined;
-    CarDetails: { car: CarDTO };
-    Scheduling: undefined;
-    SchedulingDetails: undefined;
-    SchedulingComplete: undefined;
-};
-
 export interface RouteParams {
     car: CarDTO;
+    dates: string[];
 }
+
+export interface RentalPeriod {
+    start: number;
+    startFormatted: string;
+    end: number;
+    endFormatted: string;
+}
+
+export type RootParamList = {
+    Home: undefined;
+    CarDetails: { car: CarDTO; dates?: string[] };
+    Scheduling: { car: CarDTO; dates?: string[] };
+    SchedulingDetails: { car: CarDTO; dates?: string[] };
+    SchedulingComplete: undefined;
+};
 
 export type ProfileScreenNavigationProp = CompositeNavigationProp<
     NativeStackNavigationProp<RootParamList>,

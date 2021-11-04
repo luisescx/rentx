@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { StatusBar } from "react-native";
+import { Alert, StatusBar } from "react-native";
 import { useTheme } from "styled-components/native";
 import { BackButton } from "../../components/BackButton";
 import {
     Container,
     Header,
     Title,
-    RentalPeriod,
+    RentalPeriodView,
     DateInfo,
     DateTitle,
     DateValue,
@@ -16,11 +16,17 @@ import {
 import ArrowSvg from "../../../assets/arrow.svg";
 import { Button } from "../../components/Button";
 import Calendar from "../../components/Calendar";
-import { useNavigation } from "@react-navigation/native";
-import { ProfileScreenNavigationProp } from "../../common/interfaces";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+    ProfileScreenNavigationProp,
+    RentalPeriod,
+    RouteParams,
+} from "../../common/interfaces";
 import { NavigateEnum } from "../../common/enum";
 import { DateObject, MarkedDateProps } from "react-native-calendars";
 import { generateInterval } from "../../components/Calendar/generateInterval";
+import { getPlatformDate } from "../../utils/AppUtil";
+import { format } from "date-fns";
 
 export const Scheduling = () => {
     const [lastSelectedDate, setLastSelectedDate] = useState<DateObject>(
@@ -29,12 +35,24 @@ export const Scheduling = () => {
     const [markedDates, setMarkedDates] = useState<MarkedDateProps>(
         {} as MarkedDateProps
     );
+    const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>(
+        {} as RentalPeriod
+    );
 
+    const route = useRoute();
+    const { car } = route.params as RouteParams;
     const navigation = useNavigation<ProfileScreenNavigationProp>();
     const theme = useTheme();
 
     const handleConfirmation = () => {
-        navigation.navigate(NavigateEnum.schedulingDetails);
+        if (!rentalPeriod.startFormatted || !rentalPeriod.endFormatted) {
+            Alert.alert("Selecione um período");
+        } else {
+            navigation.navigate(NavigateEnum.schedulingDetails, {
+                car,
+                dates: Object.keys(markedDates),
+            });
+        }
     };
 
     const handleGoBack = () => {
@@ -53,6 +71,22 @@ export const Scheduling = () => {
         setLastSelectedDate(end);
         const interval = generateInterval(start, end);
         setMarkedDates(interval);
+
+        const firstDate = Object.keys(interval)[0];
+        const endDate = Object.keys(interval)[Object.keys(interval).length - 1];
+
+        setRentalPeriod({
+            start: start.timestamp,
+            startFormatted: format(
+                getPlatformDate(new Date(firstDate)),
+                "dd/MM/yyyy"
+            ),
+            end: end.timestamp,
+            endFormatted: format(
+                getPlatformDate(new Date(endDate)),
+                "dd/MM/yyyy"
+            ),
+        });
     };
 
     return (
@@ -71,19 +105,23 @@ export const Scheduling = () => {
                     fim do aluguel
                 </Title>
 
-                <RentalPeriod>
+                <RentalPeriodView>
                     <DateInfo>
                         <DateTitle>DE</DateTitle>
-                        <DateValue selected={false}></DateValue>
+                        <DateValue selected={!!rentalPeriod.startFormatted}>
+                            {rentalPeriod.startFormatted}
+                        </DateValue>
                     </DateInfo>
 
                     <ArrowSvg />
 
                     <DateInfo>
                         <DateTitle>ATÉ</DateTitle>
-                        <DateValue selected={true}>18/06/2021</DateValue>
+                        <DateValue selected={!!rentalPeriod.endFormatted}>
+                            {rentalPeriod.endFormatted}
+                        </DateValue>
                     </DateInfo>
-                </RentalPeriod>
+                </RentalPeriodView>
             </Header>
 
             <Content>

@@ -40,12 +40,18 @@ import {
 } from "./styles";
 import { RFValue } from "react-native-responsive-fontsize";
 import theme from "../../styles/theme";
-import { useNavigation } from "@react-navigation/native";
-import { ProfileScreenNavigationProp } from "../../common/interfaces";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import {
+    ProfileScreenNavigationProp,
+    RouteParams,
+} from "../../common/interfaces";
 import { NavigateEnum } from "../../common/enum";
 
 export const SchedulingDetails = () => {
     const navigation = useNavigation<ProfileScreenNavigationProp>();
+
+    const route = useRoute();
+    const { car } = route.params as RouteParams;
 
     const handleConfirmRent = () => {
         navigation.navigate(NavigateEnum.schedulingComplete);
@@ -62,9 +68,7 @@ export const SchedulingDetails = () => {
             </Header>
 
             <CarImages>
-                <ImageSlider
-                    imageUrl={[require("../../../assets/carsImages/Audi.png")]}
-                />
+                <ImageSlider imageUrl={car.photos} />
             </CarImages>
 
             <Content>

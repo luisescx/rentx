@@ -36,7 +36,9 @@ export const CarDetails = () => {
     const { car } = route.params as RouteParams;
 
     const handleConfirmation = () => {
-        navigation.navigate(NavigateEnum.scheduling);
+        navigation.navigate(NavigateEnum.scheduling, {
+            car,
+        });
     };
 
     const handleGoBack = () => {

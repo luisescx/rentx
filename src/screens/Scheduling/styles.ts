@@ -28,7 +28,7 @@ export const Title = styled.Text`
     margin-top: 24px;
 `;
 
-export const RentalPeriod = styled.View`
+export const RentalPeriodView = styled.View`
     width: 100%;
     flex-direction: row;
     justify-content: space-between;
