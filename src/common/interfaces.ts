@@ -28,9 +28,9 @@ export interface RouteParams {
 }
 
 export interface RentalPeriod {
-    start: number;
+    start?: number;
     startFormatted: string;
-    end: number;
+    end?: number;
     endFormatted: string;
 }
 
