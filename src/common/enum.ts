@@ -4,6 +4,7 @@ export enum NavigateEnum {
     scheduling = "Scheduling",
     schedulingDetails = "SchedulingDetails",
     schedulingComplete = "SchedulingComplete",
+    myCars = "MyCars",
 }
 
 export enum AccessoryType {

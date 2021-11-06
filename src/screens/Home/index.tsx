@@ -29,6 +29,10 @@ export const Home = () => {
         navigation.navigate(NavigateEnum.carDetails, { car });
     };
 
+    const handleMyCars = () => {
+        navigation.navigate(NavigateEnum.myCars);
+    };
+
     useEffect(() => {
         async function fetchCars() {
             try {
@@ -75,6 +79,7 @@ export const Home = () => {
                     name="ios-car-sport"
                     size={32}
                     color={theme.colors.shape}
+                    onPress={handleMyCars}
                 />
             </MyCarsButton>
         </Container>

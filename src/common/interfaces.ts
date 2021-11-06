@@ -40,6 +40,7 @@ export type RootParamList = {
     Scheduling: { car: CarDTO; dates?: string[] };
     SchedulingDetails: { car: CarDTO; dates?: string[] };
     SchedulingComplete: undefined;
+    MyCars: undefined;
 };
 
 export type ProfileScreenNavigationProp = CompositeNavigationProp<
