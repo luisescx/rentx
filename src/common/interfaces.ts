@@ -1,5 +1,6 @@
 import { CompositeNavigationProp } from "@react-navigation/core";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { ViewToken } from "react-native";
 import { AccessoryType, FuelType } from "./enum";
 
 export interface Accessory {
@@ -40,6 +41,11 @@ export interface RentalPeriod {
     startFormatted: string;
     end?: number;
     endFormatted: string;
+}
+
+export interface ChangeImageProps {
+    viewableItems: ViewToken[];
+    changed: ViewToken[];
 }
 
 export type RootParamList = {

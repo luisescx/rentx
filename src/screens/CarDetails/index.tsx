@@ -58,7 +58,7 @@ export const CarDetails = () => {
             </Header>
 
             <CarImages>
-                <ImageSlider imageUrl={car.photos} />
+                <ImageSlider imagesUrl={car.photos} />
             </CarImages>
 
             <Content>
