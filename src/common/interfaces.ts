@@ -49,6 +49,7 @@ export interface ChangeImageProps {
 }
 
 export type RootParamList = {
+    Splash: undefined;
     Home: undefined;
     CarDetails: { car: CarDTO; dates?: string[] };
     Scheduling: { car: CarDTO; dates?: string[] };
