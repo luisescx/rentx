@@ -17,7 +17,7 @@ import {
 
 interface Props extends RectButtonProps {
     data: CarDTO;
-    onPress: () => void;
+    onPress?: () => void;
 }
 
 export const Car = ({ data, onPress }: Props) => {

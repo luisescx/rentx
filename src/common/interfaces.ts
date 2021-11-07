@@ -22,6 +22,14 @@ export interface CarDTO {
     photos: string[];
 }
 
+export interface MyCar {
+    user_id: string;
+    car: CarDTO;
+    startDate: string;
+    endDate: string;
+    id: string;
+}
+
 export interface RouteParams {
     car: CarDTO;
     dates: string[];
