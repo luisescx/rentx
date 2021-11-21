@@ -23,6 +23,7 @@ import { BackButton } from "../../components/BackButton";
 import { Car } from "../../components/Car";
 import { AntDesign } from "@expo/vector-icons";
 import { Loading } from "../../components/Loading";
+import LoadAnimation from "../../components/LoadAnimation";
 
 const MyCars = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -70,7 +71,7 @@ const MyCars = () => {
                 <SubTitle>Conforto, segurança e praticidade</SubTitle>
             </Header>
             {isLoading ? (
-                <Loading />
+                <LoadAnimation />
             ) : (
                 <Content>
                     <Appointments>
