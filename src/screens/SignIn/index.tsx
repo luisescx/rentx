@@ -1,13 +1,39 @@
-import React from "react";
-import { StatusBar } from "react-native";
+import React, { useState } from "react";
+import { Alert, StatusBar } from "react-native";
 import { Button } from "../../components/Button";
 import Input from "../../components/Input";
 import KeyboardAvoidingWrapper from "../../components/KeyboardAvoidingWrapper";
 import theme from "../../styles/theme";
-
+import * as Yup from "yup";
 import { Container, Header, Title, SubTitle, Footer, Form } from "./styles";
 
 const SignIn = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSignIn = async () => {
+        try {
+            const schema = Yup.object().shape({
+                email: Yup.string()
+                    .required("E-mail obrigatório")
+                    .email("Digite um email válido"),
+                password: Yup.string().required("A senha é obrigatória"),
+            });
+
+            await schema.validate({ email, password });
+            Alert.alert("Tudo certo!");
+        } catch (error) {
+            if (error instanceof Yup.ValidationError) {
+                return Alert.alert("Opa", error.message);
+            }
+
+            return Alert.alert(
+                "Erro na autenticação",
+                "Ocorreu um erro ao fazer login, verifique as credenciais"
+            );
+        }
+    };
+
     return (
         <KeyboardAvoidingWrapper>
             <Container>
@@ -33,6 +59,8 @@ const SignIn = () => {
                         keyboardType="email-address"
                         autoCorrect={false}
                         autoCapitalize="none"
+                        value={email}
+                        onChangeText={setEmail}
                     />
 
                     <Input
@@ -40,23 +68,25 @@ const SignIn = () => {
                         placeholder="Senha"
                         isPassword
                         autoCorrect={false}
+                        value={password}
+                        onChangeText={setPassword}
                     />
                 </Form>
 
                 <Footer>
                     <Button
                         title="Login"
-                        onPress={() => {}}
+                        onPress={handleSignIn}
                         enabled={true}
                         loading={false}
                     />
 
                     <Button
                         title="Criar conta gratuita"
-                        color={theme.colors.background_secondary}
                         onPress={() => {}}
                         enabled={true}
                         loading={false}
+                        color={theme.colors.background_secondary}
                         light
                     />
                 </Footer>
