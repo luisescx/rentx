@@ -5,11 +5,15 @@ import Input from "../../components/Input";
 import KeyboardAvoidingWrapper from "../../components/KeyboardAvoidingWrapper";
 import theme from "../../styles/theme";
 import * as Yup from "yup";
+import { useNavigation } from "@react-navigation/native";
 import { Container, Header, Title, SubTitle, Footer, Form } from "./styles";
+import { ProfileScreenNavigationProp } from "../../common/interfaces";
+import { NavigateEnum } from "../../common/enum";
 
 const SignIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigation = useNavigation<ProfileScreenNavigationProp>();
 
     const handleSignIn = async () => {
         try {
@@ -32,6 +36,10 @@ const SignIn = () => {
                 "Ocorreu um erro ao fazer login, verifique as credenciais"
             );
         }
+    };
+
+    const handleNewAccount = () => {
+        navigation.navigate(NavigateEnum.signUpFirstStep);
     };
 
     return (
@@ -83,7 +91,7 @@ const SignIn = () => {
 
                     <Button
                         title="Criar conta gratuita"
-                        onPress={() => {}}
+                        onPress={handleNewAccount}
                         enabled={true}
                         loading={false}
                         color={theme.colors.background_secondary}

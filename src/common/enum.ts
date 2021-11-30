@@ -1,9 +1,11 @@
 export enum NavigateEnum {
     home = "Home",
+    signUpFirstStep = "SignUpFirstStep",
+    signUpSecondStep = "SignUpSecondStep",
     carDetails = "CarDetails",
     scheduling = "Scheduling",
     schedulingDetails = "SchedulingDetails",
-    schedulingComplete = "SchedulingComplete",
+    confirmation = "Confirmation",
     myCars = "MyCars",
 }
 

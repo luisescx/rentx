@@ -1,7 +1,7 @@
 import { CompositeNavigationProp } from "@react-navigation/core";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ViewToken } from "react-native";
-import { AccessoryType, FuelType } from "./enum";
+import { AccessoryType, FuelType, NavigateEnum } from "./enum";
 
 export interface Accessory {
     type: AccessoryType;
@@ -34,6 +34,8 @@ export interface MyCar {
 export interface RouteParams {
     car: CarDTO;
     dates: string[];
+    confirmation: ConfirmationDTO;
+    user: UserDTO;
 }
 
 export interface RentalPeriod {
@@ -48,14 +50,28 @@ export interface ChangeImageProps {
     changed: ViewToken[];
 }
 
+export interface UserDTO {
+    name: string;
+    email: string;
+    driverLicense: string;
+}
+
+export interface ConfirmationDTO {
+    title: string;
+    message: string;
+    nextScreenRoute: NavigateEnum;
+}
+
 export type RootParamList = {
     Splash: undefined;
     SignIn: undefined;
+    SignUpFirstStep: undefined;
+    SignUpSecondStep: { user: UserDTO };
     Home: undefined;
     CarDetails: { car: CarDTO; dates?: string[] };
     Scheduling: { car: CarDTO; dates?: string[] };
     SchedulingDetails: { car: CarDTO; dates?: string[] };
-    SchedulingComplete: undefined;
+    Confirmation: { confirmation: ConfirmationDTO };
     MyCars: undefined;
 };
 

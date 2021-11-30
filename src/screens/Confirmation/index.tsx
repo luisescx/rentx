@@ -2,20 +2,28 @@ import React from "react";
 import { useWindowDimensions } from "react-native";
 import LogoSvg from "../../../assets/logo_background_gray.svg";
 import DoneSvg from "../../../assets/done.svg";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Container, Content, Title, Message, Footer } from "./styles";
 import { StatusBar } from "react-native";
 import ConfirmButton from "../../components/ConfirmButton";
-import { ProfileScreenNavigationProp } from "../../common/interfaces";
-import { NavigateEnum } from "../../common/enum";
+import {
+    ProfileScreenNavigationProp,
+    RouteParams,
+} from "../../common/interfaces";
 
-const SchedulingComplete = () => {
+const Confirmation = () => {
     const { width } = useWindowDimensions();
 
     const navigation = useNavigation<ProfileScreenNavigationProp>();
 
+    const route = useRoute();
+
+    const { confirmation } = route.params as RouteParams;
+
+    const { title, message, nextScreenRoute } = confirmation;
+
     const handleConfirmRent = () => {
-        navigation.navigate(NavigateEnum.home);
+        navigation.navigate(nextScreenRoute);
     };
 
     return (
@@ -29,13 +37,9 @@ const SchedulingComplete = () => {
 
             <Content>
                 <DoneSvg width={80} height={80} />
-                <Title>Carro Alugado!</Title>
+                <Title>{title}</Title>
 
-                <Message>
-                    Agora você só precisa ir {"\n"}
-                    até a concessionária da RENTX {"\n"}
-                    pegar o seu automóvel.
-                </Message>
+                <Message>{message}</Message>
             </Content>
 
             <Footer>
@@ -45,4 +49,4 @@ const SchedulingComplete = () => {
     );
 };
 
-export default SchedulingComplete;
+export default Confirmation;
