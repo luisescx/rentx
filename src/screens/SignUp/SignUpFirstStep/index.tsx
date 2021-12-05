@@ -1,10 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { NavigateEnum } from "../../../common/enum";
-import {
-    ProfileScreenNavigationProp,
-    UserDTO,
-} from "../../../common/interfaces";
+import { ProfileScreenNavigationProp, User } from "../../../common/interfaces";
 import { BackButton } from "../../../components/BackButton";
 import Bullet from "../../../components/Bullet";
 import { Button } from "../../../components/Button";
@@ -43,7 +40,7 @@ const SignUpFirstStep = () => {
                 name: Yup.string().required("Nome é obrigatório"),
             });
 
-            const data = { name, email, driverLicense } as UserDTO;
+            const data = { name, email, driverLicense } as User;
             await schema.validate(data);
 
             navigation.navigate(NavigateEnum.signUpSecondStep, {

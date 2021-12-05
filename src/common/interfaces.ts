@@ -35,7 +35,7 @@ export interface RouteParams {
     car: CarDTO;
     dates: string[];
     confirmation: ConfirmationDTO;
-    user: UserDTO;
+    user: User;
 }
 
 export interface RentalPeriod {
@@ -50,10 +50,12 @@ export interface ChangeImageProps {
     changed: ViewToken[];
 }
 
-export interface UserDTO {
+export interface User {
+    id?: string;
     name: string;
     email: string;
     driverLicense: string;
+    avatar?: string;
 }
 
 export interface ConfirmationDTO {
@@ -62,11 +64,26 @@ export interface ConfirmationDTO {
     nextScreenRoute: NavigateEnum;
 }
 
+export interface AuthState {
+    token: string;
+    user: User;
+}
+
+export interface SigInCredentials {
+    email: string;
+    password: string;
+}
+
+export interface AuthContextData {
+    user: User;
+    signIng: (credentials: SigInCredentials) => Promise<void>;
+}
+
 export type RootParamList = {
     Splash: undefined;
     SignIn: undefined;
     SignUpFirstStep: undefined;
-    SignUpSecondStep: { user: UserDTO };
+    SignUpSecondStep: { user: User };
     Home: undefined;
     CarDetails: { car: CarDTO; dates?: string[] };
     Scheduling: { car: CarDTO; dates?: string[] };

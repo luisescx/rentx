@@ -12,6 +12,7 @@ import Bullet from "../../../components/Bullet";
 import { Button } from "../../../components/Button";
 import Input from "../../../components/Input";
 import KeyboardAvoidingWrapper from "../../../components/KeyboardAvoidingWrapper";
+import api from "../../../services/api";
 
 import {
     Container,
@@ -37,7 +38,7 @@ const SignUpSecondStep = () => {
         navigation.goBack();
     };
 
-    const handleConfirm = () => {
+    const handleConfirm = async () => {
         if (!password || !passwordConfirm) {
             return Alert.alert("Informe a senha e a confirmação dela.");
         }
@@ -46,13 +47,25 @@ const SignUpSecondStep = () => {
             return Alert.alert("As senhas não são iguais");
         }
 
-        navigation.navigate(NavigateEnum.confirmation, {
-            confirmation: {
-                title: "Conta Criada",
-                message: `Agora é só fazer login\ne aproveitar`,
-                nextScreenRoute: NavigateEnum.home,
-            },
-        });
+        await api
+            .post("/users", {
+                name: user.name,
+                email: user.email,
+                driver_license: user.driverLicense,
+                password,
+            })
+            .then(() => {
+                navigation.navigate(NavigateEnum.confirmation, {
+                    confirmation: {
+                        title: "Conta Criada",
+                        message: `Agora é só fazer login\ne aproveitar`,
+                        nextScreenRoute: NavigateEnum.signIn,
+                    },
+                });
+            })
+            .catch(() => {
+                Alert.alert("Opa", "Não foi possível cadastrar");
+            });
     };
 
     return (

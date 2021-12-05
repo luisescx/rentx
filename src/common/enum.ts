@@ -1,5 +1,6 @@
 export enum NavigateEnum {
     home = "Home",
+    signIn = "SignIn",
     signUpFirstStep = "SignUpFirstStep",
     signUpSecondStep = "SignUpSecondStep",
     carDetails = "CarDetails",
