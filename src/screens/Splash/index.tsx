@@ -14,10 +14,12 @@ import LogoSvg from "../../../assets/logo.svg";
 import { useNavigation } from "@react-navigation/native";
 import { NavigateEnum } from "../../common/enum";
 import { ProfileScreenNavigationProp } from "../../common/interfaces";
+import { useAuth } from "../../hooks/auth";
 
 const Splash = () => {
     const navigation = useNavigation<ProfileScreenNavigationProp>();
     const splashAnimation = useSharedValue(0);
+    const { user } = useAuth();
 
     const brandStyle = useAnimatedStyle(() => {
         return {
@@ -61,7 +63,8 @@ const Splash = () => {
     });
 
     const startApp = () => {
-        navigation.navigate(NavigateEnum.home);
+        const navigationScreen = user ? NavigateEnum.home : NavigateEnum.signIn;
+        navigation.navigate(navigationScreen);
     };
 
     useEffect(() => {

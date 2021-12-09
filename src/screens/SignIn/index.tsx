@@ -9,11 +9,14 @@ import { useNavigation } from "@react-navigation/native";
 import { Container, Header, Title, SubTitle, Footer, Form } from "./styles";
 import { ProfileScreenNavigationProp } from "../../common/interfaces";
 import { NavigateEnum } from "../../common/enum";
+import { useAuth } from "../../hooks/auth";
 
 const SignIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigation = useNavigation<ProfileScreenNavigationProp>();
+
+    const { signIn } = useAuth();
 
     const handleSignIn = async () => {
         try {
@@ -25,7 +28,8 @@ const SignIn = () => {
             });
 
             await schema.validate({ email, password });
-            Alert.alert("Tudo certo!");
+
+            signIn({ email, password });
         } catch (error) {
             if (error instanceof Yup.ValidationError) {
                 return Alert.alert("Opa", error.message);

@@ -31,8 +31,8 @@ export const Car = ({ data, onPress }: Props) => {
 
                 <About>
                     <Rent>
-                        <Period>{data.rent.period}</Period>
-                        <Price>{`R$ ${data.rent.price}`}</Price>
+                        <Period>{data.period}</Period>
+                        <Price>{`R$ ${data.price}`}</Price>
                     </Rent>
 
                     {MotorIcon && (
