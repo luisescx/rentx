@@ -75,7 +75,9 @@ export const Home = () => {
             } catch (error) {
                 console.log(error);
             } finally {
-                setLoading(false);
+                if (isMounted) {
+                    setLoading(false);
+                }
             }
         }
 
