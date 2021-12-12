@@ -2,7 +2,6 @@ import styled from "styled-components/native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { FlatList } from "react-native";
 import { CarDTO } from "../../common/interfaces";
-import { RectButton } from "react-native-gesture-handler";
 
 export const Container = styled.View`
     flex: 1;
