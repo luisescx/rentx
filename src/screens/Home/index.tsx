@@ -8,7 +8,6 @@ import { CarDTO, ProfileScreenNavigationProp } from "../../common/interfaces";
 import api from "../../services/api";
 import { NavigateEnum } from "../../common/enum";
 import { Car } from "../../components/Car";
-import { Loading } from "../../components/Loading";
 import { Ionicons } from "@expo/vector-icons";
 import theme from "../../styles/theme";
 import Animated, {
@@ -64,10 +63,15 @@ export const Home = () => {
     };
 
     useEffect(() => {
+        let isMounted = true;
+
         async function fetchCars() {
             try {
                 const response = await api.get("/cars");
-                setCars(response.data);
+
+                if (isMounted) {
+                    setCars(response.data);
+                }
             } catch (error) {
                 console.log(error);
             } finally {
@@ -76,6 +80,10 @@ export const Home = () => {
         }
 
         fetchCars();
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     useEffect(() => {

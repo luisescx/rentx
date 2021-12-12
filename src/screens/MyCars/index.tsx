@@ -22,7 +22,6 @@ import { useTheme } from "styled-components/native";
 import { BackButton } from "../../components/BackButton";
 import { Car } from "../../components/Car";
 import { AntDesign } from "@expo/vector-icons";
-import { Loading } from "../../components/Loading";
 import LoadAnimation from "../../components/LoadAnimation";
 
 const MyCars = () => {
