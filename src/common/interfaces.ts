@@ -63,6 +63,7 @@ export interface User {
     email: string;
     driverLicense: string;
     avatar?: string;
+    token?: string;
 }
 
 export interface ConfirmationDTO {
