@@ -41,7 +41,7 @@ export function AppTabRoutes() {
             />
             <Screen
                 name="Profile"
-                component={Home}
+                component={MyCars}
                 options={{
                     tabBarIcon: ({ color }) => (
                         <CarSvg width={24} height={24} fill={color} />
@@ -50,7 +50,7 @@ export function AppTabRoutes() {
             />
             <Screen
                 name="MyCars"
-                component={MyCars}
+                component={Home}
                 options={{
                     tabBarIcon: ({ color }) => (
                         <PeopleSvg width={24} height={24} fill={color} />
