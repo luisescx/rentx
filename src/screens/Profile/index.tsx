@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTheme } from "styled-components";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -10,11 +10,18 @@ import {
     PhotoContainer,
     Photo,
     PhotoButton,
+    Content,
+    Options,
+    Option,
+    OptionTitle,
 } from "./styles";
 import { BackButton } from "../../components/BackButton";
 import { Feather } from "@expo/vector-icons";
+import { ProfileEdit } from "../../common/enum";
 
 const Profile = () => {
+    const [profileEdit, setProfileEdit] = useState(ProfileEdit.DATA_EDIT);
+
     const theme = useTheme();
     const navigation = useNavigation();
 
@@ -23,6 +30,10 @@ const Profile = () => {
     };
 
     const handleSignOut = () => {
+        console.log("SignOut");
+    };
+
+    const handleProfileEdit = () => {
         console.log("SignOut");
     };
 
@@ -60,6 +71,33 @@ const Profile = () => {
                     </PhotoButton>
                 </PhotoContainer>
             </Header>
+
+            <Content>
+                <Options>
+                    <Option
+                        onPress={() => setProfileEdit(ProfileEdit.DATA_EDIT)}
+                        active={profileEdit === ProfileEdit.DATA_EDIT}
+                    >
+                        <OptionTitle
+                            active={profileEdit === ProfileEdit.DATA_EDIT}
+                        >
+                            Dados
+                        </OptionTitle>
+                    </Option>
+                    <Option
+                        onPress={() =>
+                            setProfileEdit(ProfileEdit.PASSWORD_EDIT)
+                        }
+                        active={profileEdit === ProfileEdit.PASSWORD_EDIT}
+                    >
+                        <OptionTitle
+                            active={profileEdit === ProfileEdit.PASSWORD_EDIT}
+                        >
+                            Trocar senha
+                        </OptionTitle>
+                    </Option>
+                </Options>
+            </Content>
         </Container>
     );
 };
