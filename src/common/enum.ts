@@ -26,3 +26,8 @@ export enum FuelType {
     gasoline_motor = "gasoline_motor",
     hybrid_motor = "hybrid_motor",
 }
+
+export enum ProfileEdit {
+    DATA_EDIT = "DATA_EDIT",
+    PASSWORD_EDIT = "PASSWORD_EDIT",
+}
