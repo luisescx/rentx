@@ -53,6 +53,8 @@ function AuthProvider({ children }: ProviderProps) {
                 const user = response[0]._raw as unknown as User;
                 api.defaults.headers["authorization"] = `Bearer ${user.token}`;
 
+                user.driverLicense = user["driver_license"];
+                delete user["driver_license"];
                 setData({ user, token: user.token });
             }
         };
