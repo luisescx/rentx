@@ -44,6 +44,20 @@ function AuthProvider({ children }: ProviderProps) {
         }
     }
 
+    async function signOut() {
+        try {
+            const userCollection = database.get<ModelUser>("users");
+            await database.write(async () => {
+                const userSelected = await userCollection.find(data.user.id);
+                await userSelected.destroyPermanently();
+            });
+
+            setData({} as AuthState);
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
     useEffect(() => {
         const loadUserData = async () => {
             const userCollection = database.get<ModelUser>("users");
@@ -63,7 +77,7 @@ function AuthProvider({ children }: ProviderProps) {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user: data.user, signIn }}>
+        <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
             {children}
         </AuthContext.Provider>
     );
