@@ -23,20 +23,71 @@ import Input from "../../components/Input";
 import KeyboardAvoidingWrapper from "../../components/KeyboardAvoidingWrapper";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { useAuth } from "../../hooks/auth";
+import * as ImagePicker from "expo-image-picker";
+import { Button } from "../../components/Button";
+import { Alert } from "react-native";
+import * as Yup from "yup";
+import { User } from "../../common/interfaces";
 
 const Profile = () => {
+    const { user, signOut, updateUser } = useAuth();
+
     const [profileEdit, setProfileEdit] = useState(ProfileEdit.DATA_EDIT);
+    const [avatar, setAvatar] = useState(user.avatar);
+    const [name, setName] = useState(user.name);
+    const [driverLicense, setDriverlicense] = useState(user.driverLicense);
 
     const theme = useTheme();
     const navigation = useNavigation();
-    const { user } = useAuth();
 
     const handleGoBack = () => {
         navigation.goBack();
     };
 
-    const handleSignOut = () => {
-        console.log("SignOut");
+    const handleAvatarSelect = async () => {
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 4],
+            quality: 1,
+        });
+
+        if (result.cancelled) {
+            return;
+        }
+
+        if (result["uri"]) {
+            setAvatar(result["uri"]);
+        }
+    };
+
+    const handleProfileUpdate = async () => {
+        try {
+            const schema = Yup.object().shape({
+                driverLicense: Yup.string().required("CNH é obrigatória"),
+                name: Yup.string().required("Nome é obrigatório"),
+            });
+
+            const data = { name, driverLicense };
+            await schema.validate(data);
+
+            const updatedUser = {
+                id: user.id,
+                name,
+                driverLicense,
+                avatar,
+            } as User;
+
+            await updateUser(updatedUser);
+
+            Alert.alert("Usuário atualizado");
+        } catch (e) {
+            if (e instanceof Yup.ValidationError) {
+                Alert.alert("Opa", e.message);
+                return;
+            }
+            Alert.alert("Não foi possível atualizar o perfil");
+        }
     };
 
     return (
@@ -51,7 +102,7 @@ const Profile = () => {
 
                         <HeaderTitle>Editar Perfil</HeaderTitle>
 
-                        <LogoutButton onPress={handleSignOut}>
+                        <LogoutButton onPress={signOut}>
                             <Feather
                                 name="power"
                                 size={24}
@@ -61,11 +112,9 @@ const Profile = () => {
                     </HeaderTop>
 
                     <PhotoContainer>
-                        <Photo
-                            source={{ uri: "https://github.com/luisescx.png" }}
-                        />
+                        {!!avatar && <Photo source={{ uri: avatar }} />}
 
-                        <PhotoButton onPress={handleSignOut}>
+                        <PhotoButton onPress={handleAvatarSelect}>
                             <Feather
                                 name="camera"
                                 size={24}
@@ -112,6 +161,7 @@ const Profile = () => {
                                 placeholder="Nome"
                                 autoCorrect={false}
                                 defaultValue={user.name}
+                                onChangeText={setName}
                             />
                             <Input
                                 iconName="mail"
@@ -124,6 +174,7 @@ const Profile = () => {
                                 placeholder="CNH"
                                 keyboardType="numeric"
                                 defaultValue={user.driverLicense}
+                                onChangeText={setDriverlicense}
                             />
                         </Section>
                     ) : (
@@ -146,6 +197,11 @@ const Profile = () => {
                             />
                         </Section>
                     )}
+
+                    <Button
+                        title="Salvar alterações"
+                        onPress={handleProfileUpdate}
+                    />
                 </Content>
             </Container>
         </KeyboardAvoidingWrapper>
