@@ -50,6 +50,7 @@ const Input = ({ iconName, isPassword, value, ...rest }: Props) => {
                 onBlur={handleBlur}
                 secureTextEntry={isPassword && isPasswordVisible}
                 isFocused={isFocused}
+                value={value}
                 {...rest}
             />
 

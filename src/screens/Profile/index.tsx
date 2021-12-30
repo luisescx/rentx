@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTheme } from "styled-components";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import {
     Container,
     Header,
@@ -90,6 +90,18 @@ const Profile = () => {
         }
     };
 
+    useFocusEffect(
+        useCallback(() => {
+            const unsubscribe = navigation.addListener("blur", () => {
+                setAvatar(user.avatar);
+                setName(user.name);
+                setDriverlicense(user.driverLicense);
+            });
+
+            return unsubscribe;
+        }, [])
+    );
+
     return (
         <KeyboardAvoidingWrapper>
             <Container>
@@ -160,7 +172,7 @@ const Profile = () => {
                                 iconName="user"
                                 placeholder="Nome"
                                 autoCorrect={false}
-                                defaultValue={user.name}
+                                value={name}
                                 onChangeText={setName}
                             />
                             <Input
@@ -173,7 +185,7 @@ const Profile = () => {
                                 iconName="credit-card"
                                 placeholder="CNH"
                                 keyboardType="numeric"
-                                defaultValue={user.driverLicense}
+                                value={driverLicense}
                                 onChangeText={setDriverlicense}
                             />
                         </Section>
