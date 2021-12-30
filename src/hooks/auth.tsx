@@ -58,6 +58,30 @@ function AuthProvider({ children }: ProviderProps) {
         }
     }
 
+    async function updateUser(user: User) {
+        try {
+            const userCollection = database.get<ModelUser>("users");
+            await database.write(async () => {
+                const userSelected = await userCollection.find(user.id);
+
+                await userSelected.update((userData) => {
+                    userData.name = user.name;
+                    userData.driver_license = user.driverLicense;
+                    userData.avatar = user.avatar;
+                });
+            });
+
+            const newAuthState = {
+                token: data.token,
+                user: Object.assign(data.user, user),
+            };
+
+            setData(newAuthState);
+        } catch (e) {
+            throw new Error(e);
+        }
+    }
+
     useEffect(() => {
         const loadUserData = async () => {
             const userCollection = database.get<ModelUser>("users");
@@ -77,7 +101,9 @@ function AuthProvider({ children }: ProviderProps) {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
+        <AuthContext.Provider
+            value={{ user: data.user, signIn, signOut, updateUser }}
+        >
             {children}
         </AuthContext.Provider>
     );
