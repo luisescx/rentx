@@ -38,6 +38,9 @@ function AuthProvider({ children }: ProviderProps) {
                 });
             });
 
+            user.driverLicense = user.driver_license;
+            delete user.driver_license;
+
             setData({ token, user });
         } catch (error) {
             throw new Error(error);
