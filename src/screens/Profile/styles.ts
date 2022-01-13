@@ -39,11 +39,11 @@ export const LogoutButton = styled(BorderlessButton)``;
 export const PhotoContainer = styled.View`
     width: 180px;
     height: 180px;
-    border-radius: 90px
+    border-radius: 90px;
 
     background-color: ${({ theme }) => theme.colors.shape};
     margin-top: 48px;
-    `;
+`;
 
 export const Photo = styled.Image`
     width: 180px;
