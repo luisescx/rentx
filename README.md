@@ -8,8 +8,6 @@
 
 **Link Figma:** https://www.figma.com/file/kT8OaDg5OWnlRQzdW4Wfcr/RentX-Ignite
 
-## :wrench: Projeto em desenvolvimento
-
 ## :rocket: Como executar
 
 <ul>
